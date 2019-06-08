@@ -1,15 +1,24 @@
-// dependencies
+// dependenices
 const express = require('express')
 
-// own packages
-// const routes = require('./routes')
+const usersRouter = require('./routes/users')
+const petsRouter = require('./routes/pets')
 
-// const or variables
+// app const/vars
 const app = express()
-const port = 3000
+const port = 8080
 
-const obj = { message: 'Hola Mundo Koders' }
-app.get('/hola', (req, res) => res.json(obj))
+app.use(express.json())
+
+app.use('/users', usersRouter)
+app.use('/pets', petsRouter)
+
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: 'pets-api v1'
+  })
+})
 
 module.exports = {
   server: app,
